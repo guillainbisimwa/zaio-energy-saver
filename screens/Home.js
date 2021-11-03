@@ -1,28 +1,20 @@
 import { Block, Text, Button, theme, Card, Icon } from "galio-framework";
 import React, { useState } from "react";
 import { StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
+import { useSelector } from "react-redux";
 import Widget from "../components/Widget";
 import List from "../constants/List";
 import Size from "../constants/Size";
 
+const Home = ({ navigation }) => {
 
-const Home = () => {
+    const widget = useSelector((state)=> state.widget.widgets);
 
-    const [list, setList] = useState([...List]);
+    console.log(widget);
 
     const addList = () => {
-        list.push({
-            id: 5,
-            name : 'TV 2',
-            location: 'Living Room',
-            active: true,
-            state : 49,
-            icon: 'ac'
-        });
-
-        setList([...list]);
+        
     };
-
 
     return(
         
@@ -78,7 +70,7 @@ const Home = () => {
             <Text bold size={20}>Connected devices</Text>
             <Block style={styles.wrap} row>
                 {
-                    list.map((obj, index)=> 
+                    widget.map((obj, index)=> 
                         <Widget widget={obj} key={index} />
                     )
                 }
