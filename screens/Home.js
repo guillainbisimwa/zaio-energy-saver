@@ -25,8 +25,9 @@ const Home = () => {
 
 
     return(
-        <ScrollView>
+        
         <Block style={styles.container} flex={1}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <Block space="between" row middle>
                 <Block row >
                     <Block style={styles.m}>
@@ -78,7 +79,7 @@ const Home = () => {
             <Block style={styles.wrap} row>
                 {
                     list.map((obj, index)=> 
-                        <Widget widget={obj}/>
+                        <Widget widget={obj} key={index} />
                     )
                 }
                 <Block style={styles.addWidget}>
@@ -99,8 +100,9 @@ const Home = () => {
                 </Block>
             </Block>
 
-        </Block>
         </ScrollView>
+        </Block>
+
     )
 };
 
