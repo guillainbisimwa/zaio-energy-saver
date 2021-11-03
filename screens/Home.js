@@ -1,19 +1,31 @@
 import { Block, Text, Button, theme, Card, Icon } from "galio-framework";
 import React, { useState } from "react";
 import { StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Widget from "../components/Widget";
 import List from "../constants/List";
 import Size from "../constants/Size";
+import { addWidget } from "../redux/WidgetReducer";
 
 const Home = ({ navigation }) => {
 
     const widget = useSelector((state)=> state.widget.widgets);
 
-    console.log(widget);
+    const dispatch = useDispatch();
 
     const addList = () => {
-        
+        dispatch(
+            addWidget(
+                {
+                    id: 2,
+                    name : 'AC Conditionner',
+                    location: 'Bed Room',
+                    active: true,
+                    state : 80,
+                    icon : 'light'
+                }
+            )
+        )
     };
 
     return(
