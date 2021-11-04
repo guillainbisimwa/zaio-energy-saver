@@ -1,6 +1,6 @@
 import { Block, Text, theme } from "galio-framework";
 import React from "react";
-import { Image, Switch, TouchableOpacity, View } from "react-native";
+import { Image, Switch, TouchableOpacity, View, Alert } from "react-native";
 import PropTypes from 'prop-types';
 import Size from "../constants/Size";
 import { useDispatch } from "react-redux";
@@ -10,22 +10,43 @@ const Widget = (props) => {
   const dispatch = useDispatch();
 
     const progress = () => {
-        return (
-          <View style={{marginTop:15, width: '100%', justifyContent:'center', borderRadius: 10, 
-          backgroundColor: props.widget.active? '#64d1da': '#ddd', height:28}}> 
-            <View style={{ width: props.widget.state+'%', height: 28, 
-            backgroundColor: props.widget.state < 20 ?
-            theme.COLORS.DRIBBBLE : props.widget.state < 50 ? theme.COLORS.WARNING: 
-            props.widget.state < 90? 
-            props.widget.active? theme.COLORS.WHITE: theme.COLORS.TWITTER : theme.COLORS.SUCCESS,  borderRadius: 10,  }}>
-            
-            </View>
-            <View style={{position:'absolute', width:'100%',alignItems:'flex-end', paddingRight: 15}}>
-              <Text color={props.widget.active? 'white': '#000'} >{props.widget.state}%</Text>
-            </View>
+      return (
+        <View style={{marginTop:15, width: '100%', justifyContent:'center', borderRadius: 10, 
+        backgroundColor: props.widget.active? '#64d1da': '#ddd', height:28}}> 
+          <View style={{ width: props.widget.state+'%', height: 28, 
+          backgroundColor: props.widget.state < 20 ?
+          theme.COLORS.DRIBBBLE : props.widget.state < 50 ? theme.COLORS.WARNING: 
+          props.widget.state < 90? 
+          props.widget.active? theme.COLORS.WHITE: theme.COLORS.TWITTER : theme.COLORS.SUCCESS,  borderRadius: 10,  }}>
+          
           </View>
-        )
-      }
+          <View style={{position:'absolute', width:'100%',alignItems:'flex-end', paddingRight: 15}}>
+            <Text color={props.widget.active? 'white': '#000'} >{props.widget.state}%</Text>
+          </View>
+        </View>
+      )
+    };
+
+    const remove = (name) => (
+      Alert.alert(
+        "Remove a device",
+        `Do you want to remove ${name} in your devices list?`,
+        [
+          {
+            text: "Cancel",
+            style: "cancel"
+          },
+          {
+            text: "Remove",
+            onPress: () =>{
+                dispatch(
+                deleteWidget(props.id)
+              )
+            }
+          }
+        ]
+      )
+    );
 
     return (
         <Block style={{ width: Size.width / 2.11, padding: Size.p}}>
@@ -35,9 +56,8 @@ const Widget = (props) => {
           backgroundColor: props.widget.active? theme.COLORS.TWITTER: theme.COLORS.WHITE, 
           borderRadius: 10, padding: Size.p, elevation:2}}
           onPress={()=> (
-            dispatch(
-              deleteWidget(props.id)
-            )
+            remove(props.widget.name)
+            
           ) }
           >
             <Block row space="between" style={{ alignItems:'center'}}>

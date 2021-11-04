@@ -1,18 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import List from "../constants/List";
 
 const widgetSlice = createSlice({
     name: "widget",
     initialState: {
-        widgets: [
-            {
-                id: 1,
-                name : 'Light Default',
-                location: 'Living Room',
-                active: true,
-                state : 30,
-                icon : 'light'
-            },
-        ]
+        widgets: [...List]
     },
     reducers: {
         addWidget: (state, action) =>{
