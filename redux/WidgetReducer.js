@@ -16,11 +16,14 @@ const widgetSlice = createSlice({
     },
     reducers: {
         addWidget: (state, action) =>{
-            state.widgets.push(action.payload)
+            state.widgets.push(action.payload);
+        },
+        deleteWidget: (state, action) => {
+            state.widgets = [...state.widgets.filter((item, index) => index != action.payload)]
         }
     }
 });
 
-export const { addWidget } = widgetSlice.actions;
+export const { addWidget, deleteWidget } = widgetSlice.actions;
 
 export default widgetSlice.reducer;

@@ -11,23 +11,7 @@ const Home = ({ navigation }) => {
 
     const widget = useSelector((state)=> state.widget.widgets);
 
-    const dispatch = useDispatch();
-
-    const addList = () => {
-        dispatch(
-            addWidget(
-                {
-                    id: 2,
-                    name : 'AC Conditionner',
-                    location: 'Bed Room',
-                    active: true,
-                    state : 80,
-                    icon : 'light'
-                }
-            )
-        )
-    };
-
+    
     return(
         
         <Block style={styles.container} flex={1}>
@@ -83,12 +67,12 @@ const Home = ({ navigation }) => {
             <Block style={styles.wrap} row>
                 {
                     widget.map((obj, index)=> 
-                        <Widget widget={obj} key={index} />
+                        <Widget widget={obj} key={index} id={index} />
                     )
                 }
                 <Block style={styles.addWidget}>
                     <TouchableOpacity style={styles.add}
-                        onPress={()=> addList()}
+                        onPress={()=> navigation.navigate("AddDevice")}
                     >
                         <Button 
                             onlyIcon 

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Provider } from 'react-redux';
 import Tabs from './navigation/Tab';
-import {EmptyScreen} from './screens';
+import {AddDevice, EmptyScreen} from './screens';
 import Store from './redux/Store';
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +18,7 @@ const App = () => {
         >
           <Stack.Screen name="Tab" component={Tabs} />
           <Stack.Screen name="EmptyScreen" component={EmptyScreen} />
+          <Stack.Screen name="AddDevice" component={AddDevice} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

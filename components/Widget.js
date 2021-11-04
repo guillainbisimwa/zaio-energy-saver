@@ -3,9 +3,11 @@ import React from "react";
 import { Image, Switch, TouchableOpacity, View } from "react-native";
 import PropTypes from 'prop-types';
 import Size from "../constants/Size";
-
+import { useDispatch } from "react-redux";
+import { deleteWidget } from "../redux/WidgetReducer";
 
 const Widget = (props) => {
+  const dispatch = useDispatch();
 
     const progress = () => {
         return (
@@ -31,7 +33,13 @@ const Widget = (props) => {
         <Block>
           <TouchableOpacity style={{ height: 160, 
           backgroundColor: props.widget.active? theme.COLORS.TWITTER: theme.COLORS.WHITE, 
-          borderRadius: 10, padding: Size.p, elevation:2}}>
+          borderRadius: 10, padding: Size.p, elevation:2}}
+          onPress={()=> (
+            dispatch(
+              deleteWidget(props.id)
+            )
+          ) }
+          >
             <Block row space="between" style={{ alignItems:'center'}}>
               <Block middle shadow style={{ backgroundColor: props.widget.active? theme.COLORS.WHITE: theme.COLORS.GREY, borderRadius: 35, width: 35, height: 35, alignItems:'center'}}>
                 <Image source={require('../assets/favicon.png')} style={{width: 20, height: 20}} />
