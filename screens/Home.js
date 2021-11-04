@@ -1,21 +1,41 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Block, Text, Button, theme, Card, Icon } from "galio-framework";
 import React, { useState } from "react";
-import { StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet, Image, TouchableOpacity, ScrollView, RefreshControl } from "react-native";
+import { useSelector } from "react-redux";
 import Widget from "../components/Widget";
-import List from "../constants/List";
 import Size from "../constants/Size";
-import { addWidget } from "../redux/WidgetReducer";
 
 const Home = ({ navigation }) => {
 
     const widget = useSelector((state)=> state.widget.widgets);
+    const [refresh, setRefresh] = useState(false);
 
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('@test', value)
+        } catch (e) {
+          // saving error
+          console.log('error ', e);
+        }
+    }
+
+    const onRefresh = () => {
+        setRefresh(false);
+        storeData('Hello Word!');
+    };
     
     return(
         
         <Block style={styles.container} flex={1}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl 
+                    refreshing={refresh}
+                    onRefresh={onRefresh}
+                />
+            }
+        >
             <Block space="between" row middle>
                 <Block row >
                     <Block style={styles.m}>
