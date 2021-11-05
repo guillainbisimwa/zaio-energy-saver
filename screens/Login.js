@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
 
     const getData = async () => {
         try {
-            const value = await AsyncStorage.getItem('@token')
+            const value = await AsyncStorage.getItem('@token');
             if(value !== null) {
                 // value previously stored
                 ToastAndroid.show(`LOGIN TOKEN: ${value}`, ToastAndroid.LONG);
