@@ -1,25 +1,74 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Block, Text, Button, Input, theme } from 'galio-framework';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, ToastAndroid } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import fakeApi from '../api/fakeApi';
 
-const Login = () => {
+const Login = ({navigation}) => {
     const [user, setUser] = useState('johnd');
     const [pass, setPass] = useState('m38rmF$');
     const [loading, setLoading] = useState(false);
 
-    const Signin = async () => {
-        setLoading(true)
-        const rep = await fakeApi.post('/auth/login', {
-            username: user,
-            password: pass
-        });
+    const dispatch = useDispatch();
+    const state = useSelector((st)=> st);
+    console.log(state.user);
 
-        console.log(rep.data);
-        if(rep.data.hasOwnProperty('token')){
-            ToastAndroid.show(`TOKEN: ${rep.data.token}`, ToastAndroid.LONG);
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const storeData = async (value) => {
+        try {
+            
+            await AsyncStorage.setItem('@token', value)
+        } catch (e) {
+          // saving error
+          console.log('error');
         }
-        setLoading(false)
+    }
+
+    const getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@token')
+            if(value !== null) {
+                // value previously stored
+                ToastAndroid.show(`LOGIN TOKEN: ${value}`, ToastAndroid.LONG);
+                navigation.navigate('Tab')
+            }
+            
+            ToastAndroid.show(`LOGIN TOKEN: ${value}`, ToastAndroid.LONG);
+          
+        } catch(e) {
+          // error reading value
+          console.log('error', e);
+        }
+    }
+
+    const Signin = async () => {
+        if(testName(user))
+        {
+            setLoading(true)
+            const rep = await fakeApi.post('/auth/login', {
+                username: user,
+                password: pass
+            });
+    
+            console.log(rep.data);
+            if(rep.data.hasOwnProperty('token')){
+                ToastAndroid.show(`TOKEN: ${rep.data.token}`, ToastAndroid.LONG);
+                storeData(rep.data.token);
+            }
+    
+            setLoading(false)
+        }else {
+            ToastAndroid.show(`Name is invalid, please retry`, ToastAndroid.LONG);
+        }
+       
+    };
+
+    const testName = (name) => {
+        return name.length > 3
     }
 
     return(
@@ -46,6 +95,7 @@ const Login = () => {
                     placeholder="Name"
                     value={user}
                     onChangeText={(value)=> setUser(value)}
+                    //style={{ borderColor: 'red'}}
                 />
 
                 <Input
