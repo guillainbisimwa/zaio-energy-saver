@@ -12,7 +12,7 @@ const Login = ({navigation}) => {
 
     const dispatch = useDispatch();
     const state = useSelector((st)=> st);
-    console.log(state.user);
+    //console.log(state.user);
 
     useEffect(() => {
         getData();
@@ -58,6 +58,7 @@ const Login = ({navigation}) => {
             if(rep.data.hasOwnProperty('token')){
                 ToastAndroid.show(`TOKEN: ${rep.data.token}`, ToastAndroid.LONG);
                 storeData(rep.data.token);
+                navigation.navigate('Tab');
             }
     
             setLoading(false)
