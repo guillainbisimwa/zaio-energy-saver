@@ -7,7 +7,11 @@
 
 ![screenshot](./app_screenshot.png)
 
-Reduce the power consumption and cost through newly designed Energy Saver Mobile App by [CMARIX TechnoLabs](https://www.behance.net/CMARIXTechnoLabs) and implemented in React Native
+Reduce the power consumption and cost through newly designed Energy Saver Mobile App by [CMARIX TechnoLabs](https://www.behance.net/CMARIXTechnoLabs) and implemented in React Native.
+
+## Live Demo
+
+[Live Demo Link](https://youtu.be/aY8vbiFLKew)
 
 ## Built With
 
