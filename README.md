@@ -105,6 +105,8 @@ Give a ⭐️ if you like this project!
 
 - [Energy Saver Mobile App Design](https://www.behance.net/gallery/128401225/Energy-Saver-Mobile-App-Design)
 - [Zaio](https://zaio.io/)
+- 👤[Didierson AMURI](https://github.com/didiamuri)
+- 👤[Daniel rubambura](https://github.com/DanielRub)
 
 ## 📝 License
 
